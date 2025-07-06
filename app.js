@@ -37,15 +37,25 @@ function saveNote(event) {
   const title = document.getElementById("noteTitle").value.trim();
   const content = document.getElementById("noteContent").value.trim();
 
-  notes.unshift({
-    id: generateID(),
-    title,
-    content
-  });
+  if(editingID) {
+    const noteIndex = notes.findIndex(note => note.id === editingID)
+    notes[noteIndex] = {
+      ...notes[noteIndex],
+      title : title,
+      content : content
+    }
+  }
+  else{
+    notes.unshift({
+      id: generateID(),
+      title,
+      content
+    });
+  }
 
-  saveNotes();
-  renderNotes();
-  closeNoteDialog();
+  saveNotes()
+  renderNotes()
+  closeNoteDialog()
 }
 
 // Generate an ID for note ====================
@@ -61,16 +71,16 @@ function saveNotes() {
 // Show Notes ====================
 function renderNotes() {
   const notesContainer = document.getElementById("notesContainer");
+  const emptyState = document.getElementById("emptyState");
 
   if (notes.length === 0) {
-    notesContainer.innerHTML = `
-      <div class="empty-state">
-        <h2>No notes yet</h2>
-        <p>Create your first note</p>
-        <button class="add-note-btn" onclick="openNoteDialog()">Add Your First Note</button>
-      </div>
-    `;
-    return;
+    emptyState.style.display = "flex"
+    notesContainer.style.display = "none"
+  }
+  else{
+    emptyState.style.display = "none"
+    notesContainer.style.display = "grid"
+    notesContainer.innerHTML = notes.map(note => `...`).join("")
   }
 
   notesContainer.innerHTML = notes.map(note => `
@@ -93,6 +103,10 @@ function renderNotes() {
   `).join("");
 }
 
+function changeTheme() {
+  document.body.classList.toggle("dark-theme")
+}
+
 // Delete note ====================
 function deleteNotes(noteID){  
   notes = notes.filter(note => note.id != noteID)
@@ -113,4 +127,5 @@ document.addEventListener("DOMContentLoaded", function () {
   renderNotes();
 
   document.getElementById("noteDialog").addEventListener("submit", saveNote);
+  document.getElementById("themeToggle").addEventListener("click", changeTheme);
 });

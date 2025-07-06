@@ -13,12 +13,18 @@
     <h1>Notes App</h1>
     <div>
       <button class="add-note-btn" onclick="openNoteDialog()">+ Add Note</button>
-      <button id="themeToggleBtn" class="theme-toggle-btn">🌙</button>
+      <button id="themeToggleBtn" class="theme-toggle-btn" onclick="changeTheme()">🌙</button>
     </div>
   </header>
 
-  <main id="notesContainer" class="notes-grid">
+  <div id="emptyState" class="empty-state" style: "display = none">
+    <h2>No notes yet</h2>
+    <p>Create your first note</p>
+    <button class="add-note-btn" onclick="openNoteDialog()">Add Your First Note</button>
+  </div>
 
+  <main id="notesContainer" class="notes-grid">
+    <!--Notes will go here when added-->
   </main>
 
   <dialog id="noteDialog">
