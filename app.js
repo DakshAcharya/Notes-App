@@ -25,9 +25,21 @@ function openNoteDialog(noteID = null){
   title.focus()
 }
 
+// Open Theme Dialog ====================
+function openThemeDialog(){
+  const dialog = document.getElementById("ThemeDialog");
+
+  dialog.showModal()
+}
+
 // Close Dialog ====================
 function closeNoteDialog() {
   document.getElementById("noteDialog").close();
+}
+
+// Close Theme Dialog ====================
+function closeThemeDialog() {
+  document.getElementById("ThemeDialog").close();
 }
 
 // Submit Clicked ====================
