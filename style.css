@@ -27,7 +27,7 @@
 }
 
 body {
-  font-family: 'Poppins', serif;
+  font-family: 'Poppins', sans-serif;
   margin: 2rem;
   background: var(--base-color);
   color: var(--text-color);
@@ -48,7 +48,7 @@ header {
   margin-bottom: 2rem;
 }
 
-header h1{
+header h1 {
   font-weight: 900;
 }
 
@@ -83,7 +83,6 @@ header h1{
   background: var(--brand-color);
   color: white;
 }
-
 
 .notes-grid {
   display: grid;
@@ -294,32 +293,107 @@ dialog::backdrop {
   margin-bottom: 2rem;
 }
 
-.theme-content{
+/* Theme Dialog specific */
+
+#ThemeDialog:not([open]) {
+  display: none;
+}
+
+#ThemeDialog {
+  font-family: 'Poppins', sans-serif;
+  background: var(--surface-color);
+  color: var(--text-color);
+  border: none;
+  border-radius: 1rem;
+  width: 90vw;
+  max-width: 500px;
+  padding: 0;
   display: flex;
   flex-direction: column;
-  padding: 2rem;
-  align-items: left;
+  overflow: hidden;
 }
 
 .theme-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-top: 1rem;
-  margin-left: 0.5rem;
+  padding: 1.5rem 2rem 1rem;
+  border-bottom: 1px solid var(--base-color);
 }
-.theme-content input[type="checkbox"] {
-  vertical-align: middle;
-  margin-right: 0.5rem;
+
+#ThemeDialog .dialog-title {
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin: 0;
+  color: var(--text-color);
+}
+
+#ThemeDialog .close-btn {
+  background: none;
+  border: none;
+  font-size: 1.25rem;
+  color: var(--secondary-text-color);
+  cursor: pointer;
+  padding: 0.25rem;
+  border-radius: 0.25rem;
+  transition: background 0.2s ease;
+}
+
+#ThemeDialog .close-btn:hover {
+  background: var(--base-color);
+}
+
+.theme-content {
   display: flex;
   flex-direction: column;
-  padding: 2rem;
-  align-items: left;
+  padding: 1rem 2rem;
+  gap: 0.75rem;
+  flex-grow: 1;
 }
 
-.theme-content label {
+.theme-option {
   display: flex;
   align-items: center;
-  margin-bottom: 0.5rem;
+  gap: 0.75rem;
+  font-size: 1rem;
+  color: var(--secondary-text-color);
 }
 
+.theme-option input[type="checkbox"] {
+  width: 1rem;
+  height: 1rem;
+  accent-color: var(--brand-color);
+}
+
+#ThemeDialog .dialog-actions {
+  display: flex;
+  justify-content: flex-end;
+  padding: 1rem 2rem 1.5rem;
+  gap: 1rem;
+  border-top: 1px solid var(--base-color);
+  margin-top: auto;
+}
+
+#ThemeDialog .cancel-btn,
+#ThemeDialog .save-btn {
+  padding: 0.75rem 1.5rem;
+  border: none;
+  border-radius: 0.5rem;
+  cursor: pointer;
+  font-weight: 500;
+  transition: all 0.2s ease;
+}
+
+#ThemeDialog .cancel-btn {
+  background: var(--base-color);
+  color: var(--text-color);
+}
+
+#ThemeDialog .save-btn {
+  background: var(--brand-color);
+  color: white;
+}
+
+#ThemeDialog .save-btn:hover {
+  background: #7a7fff;
+}

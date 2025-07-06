@@ -56,28 +56,28 @@
 
   <dialog id="ThemeDialog">
     <div class="theme-header">
-        <h2 class="dialog-title" id="dialogTitle">Change Theme</h2>
-        <button class="close-btn" onclick="closeThemeDialog()">x</button>
+      <h2 class="dialog-title" id="dialogTitle">Change Theme</h2>
+      <button class="close-btn" onclick="closeThemeDialog()">x</button>
     </div>
 
     <div class="theme-content">
-      <input type="checkbox"> Pearl       <!-- Light -->
-      <input type="checkbox"> Midnight    <!-- Dark -->
-      <input type="checkbox"> Crimson     <!-- Red -->
-      <input type="checkbox"> Tangerine   <!-- Orange -->
-      <input type="checkbox"> Amber       <!-- Amber -->
-      <input type="checkbox"> Blush       <!-- Pink -->
-      <input type="checkbox"> Amethyst    <!-- Purple -->
-      <input type="checkbox"> Sapphire    <!-- Blue -->
-      <input type="checkbox"> Jade        <!-- Teal -->
-      <input type="checkbox"> Emerald     <!-- Green -->
+      <div class="theme-option"><input type="checkbox" id="pearl"><label for="pearl">Pearl</label></div>
+      <div class="theme-option"><input type="checkbox" id="midnight"><label for="midnight">Midnight</label></div>
+      <div class="theme-option"><input type="checkbox" id="crimson"><label for="crimson">Crimson</label></div>
+      <div class="theme-option"><input type="checkbox" id="tangerine"><label for="tangerine">Tangerine</label></div>
+      <div class="theme-option"><input type="checkbox" id="amber"><label for="amber">Amber</label></div>
+      <div class="theme-option"><input type="checkbox" id="blush"><label for="blush">Blush</label></div>
+      <div class="theme-option"><input type="checkbox" id="amethyst"><label for="amethyst">Amethyst</label></div>
+      <div class="theme-option"><input type="checkbox" id="sapphire"><label for="sapphire">Sapphire</label></div>
+      <div class="theme-option"><input type="checkbox" id="jade"><label for="jade">Jade</label></div>
+      <div class="theme-option"><input type="checkbox" id="emerald"><label for="emerald">Emerald</label></div>
     </div>
 
     <div class="dialog-actions">
       <button type="button" class="cancel-btn" onclick="closeThemeDialog()">Cancel</button>
       <button type="submit" class="save-btn">Save Theme</button>
     </div>
-    
   </dialog>
+
 </body>
 </html>
