@@ -7,13 +7,14 @@
 }
 
 :root {
-  --brand-color: #8b90ff;
-  --base-color: #f2f4f8;
-  --surface-color: #fff;
-  --text-color: #191b23;
-  --secondary-text-color: #3c404f;
-  --base-transparent-90: rgba(247, 247, 247, 0.9);
-  --base-transparent-100: rgba(247, 247, 247, 1);
+  --brand-color: #3d7a54;
+  --base-color: #2e5f40;
+  --surface-color: #4e8a67;
+  --text-color: #141414;
+  --secondary-text-color: #252525;
+  --title-color: #e6e6e6;
+  --base-transparent-90: rgba(255, 255, 255, 0.9);
+  --base-transparent-100: rgba(255, 255, 255, 1);
 }
 
 .dark-theme {
@@ -50,6 +51,7 @@ header {
 
 header h1 {
   font-weight: 900;
+  color: var(--title-color);
 }
 
 .add-note-btn {
@@ -158,9 +160,8 @@ header h1 {
 }
 
 .delete-btn:hover {
-  background: #ff5252;
   transform: scale(1.05);
-  color: white;
+  color: rgb(0, 0, 0);
 }
 
 dialog {
@@ -229,7 +230,7 @@ dialog::backdrop {
   border-radius: 0.5rem;
   font-size: 1rem;
   transition: border-color 0.2s ease;
-  background: var(--base-color);
+  background: var(--title-color);
   color: var(--text-color);
 }
 
@@ -259,8 +260,8 @@ dialog::backdrop {
 }
 
 .cancel-btn {
-  background: var(--base-color);
-  color: var(--text-color);
+  background: var(--brand-color);
+  color: var(--title-color);
 }
 
 .save-btn {
@@ -279,7 +280,7 @@ dialog::backdrop {
   text-align: center;
   padding: 4rem 2rem;
   margin-top: 20vh;
-  color: var(--secondary-text-color);
+  color: var(--title-color);
 }
 
 .empty-state h2 {
@@ -386,12 +387,12 @@ dialog::backdrop {
 
 #ThemeDialog .cancel-btn {
   background: var(--base-color);
-  color: var(--text-color);
+  color: var(--title-color);
 }
 
 #ThemeDialog .save-btn {
-  background: var(--brand-color);
-  color: white;
+  background: var(--base-color);
+  color: var(--title-color);
 }
 
 #ThemeDialog .save-btn:hover {
