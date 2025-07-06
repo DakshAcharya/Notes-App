@@ -27,7 +27,7 @@
 }
 
 body {
-  font-family: Poppins, sans-serif;
+  font-family: 'Poppins', serif;
   margin: 2rem;
   background: var(--base-color);
   color: var(--text-color);
@@ -46,6 +46,10 @@ header {
   justify-content: space-between;
   align-items: center;
   margin-bottom: 2rem;
+}
+
+header h1{
+  font-weight: 900;
 }
 
 .add-note-btn {
@@ -270,18 +274,23 @@ dialog::backdrop {
 }
 
 .empty-state {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  height: 100vh;
   text-align: center;
+  align-items: center;
   padding: 4rem 2rem;
   color: var(--secondary-text-color);
 }
 
 .empty-state h2 {
-  font-size: 1.5rem;
+  font-size: 2rem;
   margin-bottom: 0.5rem;
-  font-weight: 600;
+  font-weight: 700;
 }
 
 .empty-state p {
-  font-size: 1rem;
+  font-size: 1.5rem;
   margin-bottom: 2rem;
 }
