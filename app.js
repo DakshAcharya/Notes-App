@@ -1,7 +1,61 @@
+// === Theme Functions ====================
+
+function openThemeDialog() {
+	const dialog = document.getElementById("ThemeDialog")
+	dialog.showModal()
+}
+
+function closeThemeDialog() {
+	document.getElementById("ThemeDialog").close()
+}
+
+function ChangeTheme() {
+	const checked = document.querySelector(".theme-checkbox:checked")
+	if (checked) {		
+		document.body.className = ""                                              //clear all existing theme classes
+		document.body.classList.add(checked.id + "-theme")                        //set theme
+		saveTheme(checked.id + "-theme")                                          //gives saveTheme() cb id + '-theme'      eg. crimson -> crimson-theme
+	}
+}
+
+function saveTheme(themeName) {                            //themeName as a parameter
+	localStorage.setItem("Theme", themeName)                 //saves theme name
+}
+
+function loadTheme() {
+	const theme = localStorage.getItem("Theme")
+	if (theme) {                                              //if theme has a value
+		document.body.classList.add(theme)                      //change to theme
+		const id = theme.replace("-theme", "")                  //gets rid of the -theme to get the cb id   eg. crimson-theme -> crimson
+		const checkbox = document.getElementById(id)            //fetches the cb
+		if (checkbox) checkbox.checked = true                   // if cb has a value, then checks the relevant checkbox
+	}
+  else{
+    document.body.classList.add("midnight-theme")
+  }
+}
+
+// === Theme Checkbox Logic ====================
+document.addEventListener("DOMContentLoaded", () => {
+	loadTheme()
+
+	document.querySelectorAll('.theme-checkbox').forEach((checkbox) => {           //for each cb
+		checkbox.addEventListener('change', function () {                            //check if it changed
+			if (this.checked) {                                                        //if its checked				
+				document.querySelectorAll('.theme-checkbox').forEach((cb) => {           //for each cb
+					if (cb !== this) cb.checked = false                                    //check if its = to checked cb, yes = uncheck ; no = leave
+				})
+				ChangeTheme()                                                            //call func to change theme
+			}
+		})
+	})
+})
+
+// === Notes App ===========================
+
 let notes = []
 let editingID = null
 
-// Open Dialog ====================
 function openNoteDialog(noteID = null) {
 	const dialog = document.getElementById("noteDialog")
 	const title = document.getElementById("noteTitle")
@@ -24,23 +78,10 @@ function openNoteDialog(noteID = null) {
 	title.focus()
 }
 
-// Open Theme Dialog ====================
-function openThemeDialog() {
-	const dialog = document.getElementById("ThemeDialog")
-	dialog.showModal()
-}
-
-// Close Dialog ====================
 function closeNoteDialog() {
 	document.getElementById("noteDialog").close()
 }
 
-// Close Theme Dialog ====================
-function closeThemeDialog() {
-	document.getElementById("ThemeDialog").close()
-}
-
-// Submit Clicked ====================
 function saveNote(event) {
 	event.preventDefault()
 
@@ -67,17 +108,25 @@ function saveNote(event) {
 	closeNoteDialog()
 }
 
-// Generate an ID for note ====================
+function deleteNotes(noteID) {
+	notes = notes.filter(note => note.id !== noteID)
+	saveNotes()
+	renderNotes()
+}
+
 function generateID() {
 	return Date.now().toString()
 }
 
-// Save the Notes to localStorage ====================
 function saveNotes() {
 	localStorage.setItem("Notes App", JSON.stringify(notes))
 }
 
-// Show Notes ====================
+function loadNotes() {
+	const saved = localStorage.getItem("Notes App")
+	return saved ? JSON.parse(saved) : []
+}
+
 function renderNotes() {
 	const notesContainer = document.getElementById("notesContainer")
 	const emptyState = document.getElementById("emptyState")
@@ -109,50 +158,9 @@ function renderNotes() {
 	}
 }
 
-function ChangeTheme() {  
-	const checked = document.querySelector(".theme-checkbox:checked")
-
-	if (checked) {
-		// Remove any existing theme classes from body
-		document.body.className = ""
-
-		// Add the new theme class based on the checked checkbox id
-		document.body.classList.add(checked.id + "-theme")
-	}
-}
-
-// Delete note ====================
-function deleteNotes(noteID) {
-	notes = notes.filter(note => note.id != noteID)
-	saveNotes()
-	renderNotes()
-}
-
-// Load Notes from localStorage ====================
-function loadNotes() {
-	const saved = localStorage.getItem("Notes App")
-	return saved ? JSON.parse(saved) : []
-}
-
-// Initialize App ====================
-document.addEventListener("DOMContentLoaded", function () {
+// === Notes Initialization ====================
+document.addEventListener("DOMContentLoaded", () => {
 	notes = loadNotes()
 	renderNotes()
 	document.getElementById("noteDialog").addEventListener("submit", saveNote)
-
-	document.querySelectorAll('.theme-checkbox').forEach((checkbox) => {
-		checkbox.addEventListener('change', function () {
-			if (this.checked) {
-				// Uncheck all other checkboxes
-				document.querySelectorAll('.theme-checkbox').forEach((cb) => {
-					if (cb !== this) cb.checked = false
-				})
-
-				// Apply the theme
-				ChangeTheme()
-			}
-		})
-	})
-
-	ChangeTheme()
 })
