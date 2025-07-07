@@ -9,7 +9,7 @@
 :root {
 	--brand-color: #8b90ff;
 	--base-color: #eeeeee;
-	--surface-color: #f4f4f7;
+	--surface-color: #d3d3d3;
 	--text-color: #1e1f26;
 	--secondary-text-color: #5a5c6c;
 	--btn-color: #0a0909;
@@ -19,7 +19,20 @@
 	--card-shadow: 0 2px 15px rgba(0, 0, 0, 0.05);
 }
 
-.red-theme {
+.pearl-theme {
+	--brand-color: #8b90ff;
+	--base-color: #eeeeee;
+	--surface-color: #d3d3d3;
+	--text-color: #1e1f26;
+	--secondary-text-color: #5a5c6c;
+	--btn-color: #0a0909;
+	--headings-color: #f0f0f0;
+	--base-transparent-90: rgba(255, 255, 255, 0.9);
+	--base-transparent-100: rgba(255, 255, 255, 1);
+	--card-shadow: 0 2px 15px rgba(0, 0, 0, 0.05);
+}
+
+.crimson-theme {
 	--brand-color: #d93025;
 	--base-color: #b61f14;
 	--surface-color: #d1574c;
@@ -30,7 +43,7 @@
 	--base-transparent-100: rgba(255, 255, 255, 1);
 }
 
-.orange-theme {
+.tangerine-theme {
 	--brand-color: #fa991b;
 	--base-color: #f1802e;
 	--surface-color: #e89b55;
@@ -41,7 +54,7 @@
 	--base-transparent-100: rgba(255, 255, 255, 1);
 }
 
-.yellow-theme {
+.amber-theme {
 	--brand-color: hsl(50, 100%, 53%);
 	--base-color: #ecc00f;
 	--surface-color: #ffd500;
@@ -52,7 +65,7 @@
 	--base-transparent-100: rgba(255, 255, 255, 1);
 }
 
-.green-theme {
+.emerald-theme {
 	--brand-color: #3d7a54;
 	--base-color: #2e5f40;
 	--surface-color: #4e8a67;
@@ -63,7 +76,7 @@
 	--base-transparent-100: rgba(255, 255, 255, 1);
 }
 
-.teal-theme {
+.jade-theme {
 	--brand-color: #238a89;
 	--base-color: #1a6463;
 	--surface-color: #177c7a;
@@ -74,7 +87,7 @@
 	--base-transparent-100: rgba(255, 255, 255, 1);
 }
 
-.blue-theme {
+.sapphire-theme {
 	--brand-color: #239dce;
 	--base-color: #43b0e2;
 	--surface-color: #4abdff;
@@ -85,7 +98,7 @@
 	--base-transparent-100: rgba(255, 255, 255, 1);
 }
 
-.purple-theme {
+.amethyst-theme {
 	--brand-color: #7d1ed6;
 	--base-color: #3f188b;
 	--surface-color: #7c5de8;
@@ -96,7 +109,7 @@
 	--base-transparent-100: rgba(255, 255, 255, 1);
 }
 
-.pink-theme {
+.blush-theme {
 	--brand-color: #d83259;
 	--base-color: #d85578;
 	--surface-color: #d58ea1;
@@ -107,7 +120,7 @@
 	--base-transparent-100: rgba(255, 255, 255, 1);
 }
 
-.dark-theme {
+.midnight-theme {
 	--brand-color: #8b90ff;
 	--base-color: #1e1f26;
 	--surface-color: #2c2f38;
