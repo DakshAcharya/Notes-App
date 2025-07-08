@@ -18,13 +18,13 @@ function ChangeTheme() {
 	}
 }
 
-function saveTheme(themeName) {                            //themeName as a parameter
+function saveTheme(themeName) {                            	 //themeName as a parameter
 	localStorage.setItem("Theme", themeName)                 //saves theme name
 }
 
 function loadTheme() {
 	const theme = localStorage.getItem("Theme")
-	if (theme) {                                              //if theme has a value
+	if (theme) {                                                //if theme has a value
 		document.body.classList.add(theme)                      //change to theme
 		const id = theme.replace("-theme", "")                  //gets rid of the -theme to get the cb id   eg. crimson-theme -> crimson
 		const checkbox = document.getElementById(id)            //fetches the cb
@@ -39,11 +39,11 @@ function loadTheme() {
 document.addEventListener("DOMContentLoaded", () => {
 	loadTheme()
 
-	document.querySelectorAll('.theme-checkbox').forEach((checkbox) => {           //for each cb
-		checkbox.addEventListener('change', function () {                            //check if it changed
-			if (this.checked) {                                                        //if its checked				
-				document.querySelectorAll('.theme-checkbox').forEach((cb) => {           //for each cb
-					if (cb !== this) cb.checked = false                                    //check if its = to checked cb, yes = uncheck ; no = leave
+	document.querySelectorAll('.theme-checkbox').forEach((checkbox) => {           		//for each cb
+		checkbox.addEventListener('change', function () {                           	//check if it changed
+			if (this.checked) {                                                     	//if its checked				
+				document.querySelectorAll('.theme-checkbox').forEach((cb) => {          //for each cb
+					if (cb !== this) cb.checked = false                                 //check if its = to checked cb, yes = uncheck ; no = leave
 				})
 				ChangeTheme()                                                            //call func to change theme
 			}
@@ -52,9 +52,9 @@ document.addEventListener("DOMContentLoaded", () => {
 })
 
 // === Notes App ===========================
-
 let notes = []
 let editingID = null
+let deletedID = null
 
 function openNoteDialog(noteID = null) {
 	const dialog = document.getElementById("noteDialog")
@@ -156,6 +156,11 @@ function renderNotes() {
 			</div>
 		`).join("")
 	}
+}
+
+// === Deleted Notes ===========================
+function showDeletedNotes(){
+	window.location.href = "deleted.html";
 }
 
 // === Notes Initialization ====================

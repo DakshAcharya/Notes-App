@@ -6,6 +6,22 @@
   <title>Notes App</title>
   <link rel="stylesheet" href="style.css" />
   <script src="app.js" defer></script>
+
+	<!-- Font Awesome Icons -->
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+	<!-- Google Fonts: Poppins -->
+	<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;800&display=swap" rel="stylesheet">
+
+  <!-- Meta Description -->
+	<meta name="description" content="Daksh Acharya's Developer Portfolio.">
+
+  <!-- Open Graph Tags -->
+	<meta property="og:title" content="Daksh Acharya | Developer Portfolio">
+	<meta property="og:description" content="Developer portfolio showcasing web projects, applications and games.">
+	<meta property="og:image" content="https://dakshacharya.github.io/images/logo.png">
+	<meta property="og:type" content="website">
+	<meta property="og:url" content="https://dakshacharya.github.io/">
 </head>
 <body>
 
@@ -51,7 +67,7 @@
   <dialog id="ThemeDialog">
     <div class="theme-header">
       <h2 class="dialog-title">Change Theme</h2>
-      <button class="close-btn" onclick="closeThemeDialog()">×</button>
+      <button class="close-btn" onclick="closeThemeDialog()">x</button>
     </div>
 
     <div class="theme-content">
@@ -70,6 +86,10 @@
       <button type="button" class="cancel-btn" onclick="closeThemeDialog()">Close</button>
     </div>
   </dialog>
+
+  <footer>
+    <button class="deleted-notes-btn" onclick="showDeletedNotes()"><i class="fa-solid fa-trash"></i></button>
+  </footer>
 
 </body>
 </html>
