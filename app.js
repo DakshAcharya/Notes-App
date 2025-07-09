@@ -30,7 +30,7 @@ function loadTheme() {
 		const checkbox = document.getElementById(id)            //fetches the cb
 		if (checkbox) checkbox.checked = true                   // if cb has a value, then checks the relevant checkbox
 	}
-  else{
+  else {
     document.body.classList.add("midnight-theme")
   }
 }
@@ -56,6 +56,7 @@ let notes = []
 let deletedNotes = []
 let editingID = null
 let deletedID = null
+let currentlyDeletingNote = null;
 
 function openNoteDialog(noteID = null) {
 	const dialog = document.getElementById("noteDialog")
@@ -161,11 +162,11 @@ function renderNotes() {
 
 // === Deleted Notes ===========================
 function showDeletedNotes(){
-	window.location.href = "deleted.html";
+	window.location.href = "deleted.html"
 }
 
 function hideDeletedNotes(){
-	window.location.href = "index.html";
+	window.location.href = "index.html"
 }
 
 function saveDeletedNotes(){
@@ -214,6 +215,9 @@ function renderDeletedNotes(){
 					<button class="edit-btn" onclick="moveToNotesPage('${note.id}')" title="Edit Note">
 						<i class="fa-solid fa-arrows-rotate"></i>
 					</button>
+					<button class="edit-btn" onclick="openWarningDialog('${note.id}')" title="Edit Note">
+						x
+					</button>
 				</div>
 			</div>
 		`).join("")
@@ -221,33 +225,55 @@ function renderDeletedNotes(){
 }
 
 function moveToNotesPage(noteID){
-	const restoreNote = deletedNotes.find(note => note.id === noteID)
-	const title = restoreNote.title
-	const content = restoreNote.content
+    const restoreNote = deletedNotes.find(note => note.id === noteID)
+    
+    // Remove from deleted notes
+    deletedNotes = deletedNotes.filter(note => note.id !== noteID)
+    
+    // Add to main notes
+    notes = [restoreNote, ...notes]
+    
+    saveDeletedNotes()
+    saveNotes()
+    
+    if (window.location.pathname.includes("deleted.html")) {
+        renderDeletedNotes()
+    } else {
+        renderNotes()
+    }
+}
 
-	deletedNotes = deletedNotes.filter(note => note.id !== noteID)
+function deletePermanently(noteID) {
+    deletedNotes = deletedNotes.filter(note => note.id !== noteID);
+    saveDeletedNotes()
+    renderDeletedNotes()
+}
 
-	notes.unshift({
-		id: noteID,
-		title,
-		content
-	})
+function openWarningDialog(noteID) {
+    currentlyDeletingNote = noteID
+	const dialog = document.getElementById("warningDialog")
+    dialog.showModal()
+}
 
-	saveDeletedNotes()
-	saveNotes()
-	renderDeletedNotes()
+function closeWarningDialog() {
+    currentlyDeletingNote = null
+	const dialog = document.getElementById("warningDialog")
+	dialog.close()
 }
 
 // === Notes Initialization ====================
 document.addEventListener("DOMContentLoaded", () => {
-	const isDeletedPage = window.location.pathname.includes("deleted.html")
+    // Always load both notes and deleted notes
+    notes = loadNotes();
+    deletedNotes = loadDeletedNotes();
 
-	if (isDeletedPage) {
-		deletedNotes = loadDeletedNotes()
-		renderDeletedNotes()
-	} else {
-		notes = loadNotes()
-		renderNotes()
-		document.getElementById("noteDialog").addEventListener("submit", saveNote)
-	}
-})
+    const isDeletedPage = window.location.pathname.includes("deleted.html");
+    
+    if (isDeletedPage) {
+        renderDeletedNotes();
+    } 
+	else {
+        renderNotes();
+        document.getElementById("noteDialog").addEventListener("submit", saveNote);
+    }
+});
