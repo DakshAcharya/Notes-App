@@ -148,7 +148,7 @@ function renderNotes() {
 							<path d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04c.39-.39.39-1.02 0-1.41l-2.34-2.34c-.39-.39-1.02-.39-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z"/>
 						</svg>
 					</button>
-					<button class="delete-btn" onclick="deleteNotes('${note.id}')" title="Delete Note">
+					<button class="delete-btn" onclick="moveToDeletedPage('${note.id}')" title="Delete Note">
 						<svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
 							<path d="M18.3 5.71c-.39-.39-1.02-.39-1.41 0L12 10.59 7.11 5.7c-.39-.39-1.02-.39-1.41 0-.39.39-.39 1.02 0 1.41L10.59 12 5.7 16.89c-.39.39-.39 1.02 0 1.41.39.39 1.02.39 1.41 0L12 13.41l4.89 4.88c.39.39 1.02.39 1.41 0 .39-.39.39-1.02 0-1.41L13.41 12l4.89-4.89c.38-.38.38-1.02 0-1.4z"/>
 						</svg>
@@ -169,7 +169,7 @@ function hideDeletedNotes(){
 }
 
 function saveDeletedNotes(){
-	localStorage.setItem("Notes App", JSON.stringify(deletedNotes))
+	localStorage.setItem("Deleted Notes", JSON.stringify(deletedNotes))
 }
 
 function loadDeletedNotes(){
@@ -177,17 +177,77 @@ function loadDeletedNotes(){
 	return deleted ? JSON.parse(deleted) : []
 }
 
-function moveToDeletedPage(deletedID){
+function moveToDeletedPage(noteID){
 	const deleteNote = notes.find(note => note.id === noteID)
 	deletedID = noteID
+	const title = deleteNote.title
+	const content = deleteNote.content
+
+	notes = notes.filter(note => note.id !== noteID)
+
+	deletedNotes.unshift({
+		id: deletedID,
+		title,
+		content
+	})
+
+	saveDeletedNotes()
+	saveNotes()
+	renderNotes()
 }
 
+function renderDeletedNotes(){
+	const notesContainer = document.getElementById("notesContainer")
+	const emptyState = document.getElementById("emptyState")
 
+	if (deletedNotes.length === 0) {
+		emptyState.style.display = "flex"
+		notesContainer.style.display = "none"
+	} else {
+		emptyState.style.display = "none"
+		notesContainer.style.display = "grid"
+		notesContainer.innerHTML = deletedNotes.map(note => `
+			<div class="note-card">
+				<h3 class="note-title">${note.title}</h3>
+				<p class="note-content">${note.content}</p>
+				<div class="note-actions">
+					<button class="edit-btn" onclick="moveToNotesPage('${note.id}')" title="Edit Note">
+						<i class="fa-solid fa-arrows-rotate"></i>
+					</button>
+				</div>
+			</div>
+		`).join("")
+	}
+}
 
+function moveToNotesPage(noteID){
+	const restoreNote = deletedNotes.find(note => note.id === noteID)
+	const title = restoreNote.title
+	const content = restoreNote.content
+
+	deletedNotes = deletedNotes.filter(note => note.id !== noteID)
+
+	notes.unshift({
+		id: noteID,
+		title,
+		content
+	})
+
+	saveDeletedNotes()
+	saveNotes()
+	renderDeletedNotes()
+}
 
 // === Notes Initialization ====================
 document.addEventListener("DOMContentLoaded", () => {
-	notes = loadNotes()
-	renderNotes()
-	document.getElementById("noteDialog").addEventListener("submit", saveNote)
+	const isDeletedPage = window.location.pathname.includes("deleted.html")
+
+	if (isDeletedPage) {
+		deletedNotes = loadDeletedNotes()
+		renderDeletedNotes()
+	} else {
+		notes = loadNotes()
+		renderNotes()
+		document.getElementById("noteDialog").addEventListener("submit", saveNote)
+	}
 })
