@@ -53,6 +53,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
 // === Notes App ===========================
 let notes = []
+let deletedNotes = []
 let editingID = null
 let deletedID = null
 
@@ -162,6 +163,27 @@ function renderNotes() {
 function showDeletedNotes(){
 	window.location.href = "deleted.html";
 }
+
+function hideDeletedNotes(){
+	window.location.href = "index.html";
+}
+
+function saveDeletedNotes(){
+	localStorage.setItem("Notes App", JSON.stringify(deletedNotes))
+}
+
+function loadDeletedNotes(){
+	const deleted = localStorage.getItem("Deleted Notes")
+	return deleted ? JSON.parse(deleted) : []
+}
+
+function moveToDeletedPage(deletedID){
+	const deleteNote = notes.find(note => note.id === noteID)
+	deletedID = noteID
+}
+
+
+
 
 // === Notes Initialization ====================
 document.addEventListener("DOMContentLoaded", () => {

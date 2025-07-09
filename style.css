@@ -8,6 +8,20 @@
   box-sizing: border-box;
 }
 
+html, body {
+  height: 100%;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+body {
+  font-family: 'Poppins', sans-serif;
+  background: var(--background-color);
+  color: var(--text-color);
+  margin: 2rem;
+}
+
 /* ==================== Base Theme Variables ==================== */
 :root {
   --button-color: #8b90ff;
@@ -132,13 +146,6 @@
 }
 
 /* ==================== Base Styles ==================== */
-body {
-  font-family: 'Poppins', sans-serif;
-  background: var(--background-color);
-  color: var(--text-color);
-  margin: 2rem;
-}
-
 button,
 input,
 textarea {
@@ -457,7 +464,6 @@ dialog::backdrop {
 
 @media (max-width : 599px) {
   header{
-    font-size: 1.2rem;
     display: flex;
     flex-direction: column;
   }
@@ -466,21 +472,34 @@ dialog::backdrop {
     display: grid;
     grid-template-columns: 1fr 1fr;
   }
+
+  header .add-note-btn, 
+  header .theme-toggle-btn {
+    max-height: 8vh;
+  }
+
+  header .theme-toggle-btn {
+    font-size: 0.8rem;
+  }
+
 }
 
 /* ==================== Footer ==================== */
-
 footer {
   display: flex;
   flex-direction: column;
   align-items: center;
   text-align: center;
   padding: 4rem 2rem;
-  margin-top: 20vh;
+  margin-bottom: 0;
 }
 
-footer .deleted-notes-btn{
+footer .deleted-notes-btn {
   display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 60px;
+  height: 60px;
   background: var(--button-color);
   padding: 1.5rem;
   border: 1px solid var(--btn-text-color);
@@ -489,6 +508,6 @@ footer .deleted-notes-btn{
   transition: 0.4s ease;
 }
 
-footer .deleted-notes-btn:hover{
+footer .deleted-notes-btn:hover {
   transform: scale(1.04);
 }

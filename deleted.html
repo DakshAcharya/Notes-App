@@ -6,68 +6,40 @@
   <title>Deleted Notes</title>
   <link rel="stylesheet" href="style.css" />
   <script src="app.js" defer></script>
+
+	<!-- Font Awesome Icons -->
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+	<!-- Google Fonts: Poppins -->
+	<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;800&display=swap" rel="stylesheet">
+
+  <!-- Meta Description -->
+	<meta name="description" content="Daksh Acharya's Developer Portfolio.">
+
+  <!-- Open Graph Tags -->
+	<meta property="og:title" content="Daksh Acharya | Developer Portfolio">
+	<meta property="og:description" content="Developer portfolio showcasing web projects, applications and games.">
+	<meta property="og:image" content="https://dakshacharya.github.io/images/logo.png">
+	<meta property="og:type" content="website">
+	<meta property="og:url" content="https://dakshacharya.github.io/">
+
 </head>
 <body>
 
   <header>
     <h1>Deleted Notes</h1>
-    <div class="header-btn">
-      <button class="add-note-btn" onclick="openNoteDialog()">+ Add Note</button>
-      <button id="themeToggleBtn" class="theme-toggle-btn" onclick="openThemeDialog()">Change Theme</button>
-    </div>
-  </header>
+
 
   <div id="emptyState" class="empty-state" style="display: none;">
     <h2>No notes deleted yet...</h2>
   </div>
 
-  <main id="notesContainer" class="notes-grid"></main>
+  <main id="notesContainer" class="notes-grid">
+    
+  </main>
 
-  <dialog id="noteDialog">
-    <div class="dialog-content">
-      <div class="dialog-header">
-        <h2 class="dialog-title" id="dialogTitle">Add New Note</h2>
-        <button class="close-btn" onclick="closeNoteDialog()">x</button>
-      </div>
-      <form id="noteForm">
-        <div class="form-group">
-          <label for="noteTitle" class="form-label">Title</label>
-          <input type="text" id="noteTitle" class="form-input" placeholder="Enter note title..." required />
-        </div>
-        <div class="form-group">
-          <label for="noteContent" class="form-label">Content</label>
-          <textarea id="noteContent" class="form-textarea" placeholder="Write your note here..." required></textarea>
-        </div>
-        <div class="dialog-actions">
-          <button type="button" class="cancel-btn" onclick="closeNoteDialog()">Cancel</button>
-          <button type="submit" class="save-btn">Save Note</button>
-        </div>
-      </form>
-    </div>
-  </dialog>
-
-  <dialog id="ThemeDialog">
-    <div class="theme-header">
-      <h2 class="dialog-title">Change Theme</h2>
-      <button class="close-btn" onclick="closeThemeDialog()">x</button>
-    </div>
-
-    <div class="theme-content">
-      <div class="theme-option"><input type="checkbox" class="theme-checkbox" id="pearl">Pearl</div>
-      <div class="theme-option"><input type="checkbox" class="theme-checkbox" id="midnight">Midnight</div>
-      <div class="theme-option"><input type="checkbox" class="theme-checkbox" id="crimson">Crimson</div>
-      <div class="theme-option"><input type="checkbox" class="theme-checkbox" id="tangerine">Tangerine</div>
-      <div class="theme-option"><input type="checkbox" class="theme-checkbox" id="amber">Amber</div>
-      <div class="theme-option"><input type="checkbox" class="theme-checkbox" id="blush">Blush</div>
-      <div class="theme-option"><input type="checkbox" class="theme-checkbox" id="amethyst">Amethyst</div>
-      <div class="theme-option"><input type="checkbox" class="theme-checkbox" id="sapphire">Sapphire</div>
-      <div class="theme-option"><input type="checkbox" class="theme-checkbox" id="jade">Jade</div>
-      <div class="theme-option"><input type="checkbox" class="theme-checkbox" id="emerald">Emerald</div>
-    </div>
-    <div class="dialog-actions">
-      <button type="button" class="cancel-btn" onclick="closeThemeDialog()">Close</button>
-    </div>
-  </dialog>
-
+  <footer>
+    <button class="deleted-notes-btn" onclick="hideDeletedNotes()"><i class="fa-solid fa-arrow-left"></i></button>
+  </footer>
 </body>
 </html>
