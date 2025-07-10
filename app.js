@@ -1,5 +1,5 @@
-// === Theme Functions ====================
-
+// ==================== THEME MANAGEMENT ====================
+// Functions for theme dialog and theme switching
 function openThemeDialog() {
 	const dialog = document.getElementById("ThemeDialog")
 	dialog.showModal()
@@ -12,64 +12,68 @@ function closeThemeDialog() {
 function ChangeTheme() {
 	const checked = document.querySelector(".theme-checkbox:checked")
 	if (checked) {		
-		document.body.className = ""                                              //clear all existing theme classes
-		document.body.classList.add(checked.id + "-theme")                        //set theme
-		saveTheme(checked.id + "-theme")                                          //gives saveTheme() cb id + '-theme'      eg. crimson -> crimson-theme
+		document.body.className = ""                               // Clear existing theme classes
+		document.body.classList.add(checked.id + "-theme")         // Apply new theme
+		saveTheme(checked.id + "-theme")                          // Save theme to localStorage
 	}
 }
 
-function saveTheme(themeName) {                            	 //themeName as a parameter
-	localStorage.setItem("Theme", themeName)                 //saves theme name
+function saveTheme(themeName) {
+	localStorage.setItem("Theme", themeName)                      // Save theme name
 }
 
 function loadTheme() {
 	const theme = localStorage.getItem("Theme")
-	if (theme) {                                                //if theme has a value
-		document.body.classList.add(theme)                      //change to theme
-		const id = theme.replace("-theme", "")                  //gets rid of the -theme to get the cb id   eg. crimson-theme -> crimson
-		const checkbox = document.getElementById(id)            //fetches the cb
-		if (checkbox) checkbox.checked = true                   // if cb has a value, then checks the relevant checkbox
+	if (theme) {                                                  
+		document.body.classList.add(theme)                        // Apply saved theme
+		const id = theme.replace("-theme", "")                    // Get checkbox ID from theme name
+		const checkbox = document.getElementById(id)            
+		if (checkbox) checkbox.checked = true                     // Check the relevant checkbox
+	} else {
+		document.body.classList.add("midnight-theme")             // Default theme
 	}
-  else {
-    document.body.classList.add("midnight-theme")
-  }
 }
 
-// === Theme Checkbox Logic ====================
+// Theme checkbox event listeners
 document.addEventListener("DOMContentLoaded", () => {
 	loadTheme()
 
-	document.querySelectorAll('.theme-checkbox').forEach((checkbox) => {           		//for each cb
-		checkbox.addEventListener('change', function () {                           	//check if it changed
-			if (this.checked) {                                                     	//if its checked				
-				document.querySelectorAll('.theme-checkbox').forEach((cb) => {          //for each cb
-					if (cb !== this) cb.checked = false                                 //check if its = to checked cb, yes = uncheck ; no = leave
+	// Handle theme selection changes
+	document.querySelectorAll('.theme-checkbox').forEach((checkbox) => {
+		checkbox.addEventListener('change', function() {
+			if (this.checked) {
+				// Uncheck all other checkboxes
+				document.querySelectorAll('.theme-checkbox').forEach((cb) => {
+					if (cb !== this) cb.checked = false
 				})
-				ChangeTheme()                                                            //call func to change theme
+				ChangeTheme()  // Apply the selected theme
 			}
 		})
 	})
 })
 
-// === Notes App ===========================
-let notes = []
-let deletedNotes = []
-let editingID = null
-let deletedID = null
-let currentlyDeletingNote = null;
+// ==================== NOTE MANAGEMENT ====================
+let notes = []                      // Active notes
+let deletedNotes = []               // Deleted notes
+let editingID = null                // ID of note being edited
+let deletedID = null                // ID of note being deleted
+let currentlyDeletingNote = null;   // Note pending permanent deletion
 
+// Note dialog functions
 function openNoteDialog(noteID = null) {
 	const dialog = document.getElementById("noteDialog")
 	const title = document.getElementById("noteTitle")
 	const content = document.getElementById("noteContent")
 
 	if (noteID) {
+		// Edit existing note
 		const editNote = notes.find(note => note.id === noteID)
 		editingID = noteID
 		document.getElementById("dialogTitle").textContent = "Edit Note"
 		title.value = editNote.title
 		content.value = editNote.content
 	} else {
+		// Create new note
 		editingID = null
 		document.getElementById("dialogTitle").textContent = "Add New Note"
 		title.value = ""
@@ -84,6 +88,7 @@ function closeNoteDialog() {
 	document.getElementById("noteDialog").close()
 }
 
+// Save note (new or edited)
 function saveNote(event) {
 	event.preventDefault()
 
@@ -91,18 +96,12 @@ function saveNote(event) {
 	const content = document.getElementById("noteContent").value.trim()
 
 	if (editingID) {
+		// Update existing note
 		const noteIndex = notes.findIndex(note => note.id === editingID)
-		notes[noteIndex] = {
-			...notes[noteIndex],
-			title,
-			content
-		}
+		notes[noteIndex] = {...notes[noteIndex], title, content}
 	} else {
-		notes.unshift({
-			id: generateID(),
-			title,
-			content
-		})
+		// Create new note
+		notes.unshift({id: generateID(), title, content})
 	}
 
 	saveNotes()
@@ -110,16 +109,19 @@ function saveNote(event) {
 	closeNoteDialog()
 }
 
+// Delete note (move to trash)
 function deleteNotes(noteID) {
 	notes = notes.filter(note => note.id !== noteID)
 	saveNotes()
 	renderNotes()
 }
 
+// Generate unique ID for notes
 function generateID() {
 	return Date.now().toString()
 }
 
+// Save/load active notes
 function saveNotes() {
 	localStorage.setItem("Notes App", JSON.stringify(notes))
 }
@@ -129,6 +131,7 @@ function loadNotes() {
 	return saved ? JSON.parse(saved) : []
 }
 
+// Render active notes to the DOM
 function renderNotes() {
 	const notesContainer = document.getElementById("notesContainer")
 	const emptyState = document.getElementById("emptyState")
@@ -160,36 +163,39 @@ function renderNotes() {
 	}
 }
 
-// === Deleted Notes ===========================
-function showDeletedNotes(){
+// ==================== DELETED NOTES MANAGEMENT ====================
+// Navigation between pages
+function showDeletedNotes() {
 	window.location.href = "deleted.html"
 }
 
-function hideDeletedNotes(){
+function hideDeletedNotes() {
 	window.location.href = "index.html"
 }
 
-function saveDeletedNotes(){
+// Save/load deleted notes
+function saveDeletedNotes() {
 	localStorage.setItem("Deleted Notes", JSON.stringify(deletedNotes))
 }
 
-function loadDeletedNotes(){
+function loadDeletedNotes() {
 	const deleted = localStorage.getItem("Deleted Notes")
 	return deleted ? JSON.parse(deleted) : []
 }
 
-function moveToDeletedPage(noteID){
+// Move note to trash
+function moveToDeletedPage(noteID) {
 	const deleteNote = notes.find(note => note.id === noteID)
 	deletedID = noteID
-	const title = deleteNote.title
-	const content = deleteNote.content
 
+	// Remove from active notes
 	notes = notes.filter(note => note.id !== noteID)
-
+	
+	// Add to deleted notes
 	deletedNotes.unshift({
 		id: deletedID,
-		title,
-		content
+		title: deleteNote.title,
+		content: deleteNote.content
 	})
 
 	saveDeletedNotes()
@@ -197,7 +203,8 @@ function moveToDeletedPage(noteID){
 	renderNotes()
 }
 
-function renderDeletedNotes(){
+// Render deleted notes to the DOM
+function renderDeletedNotes() {
 	const notesContainer = document.getElementById("notesContainer")
 	const emptyState = document.getElementById("emptyState")
 
@@ -212,10 +219,10 @@ function renderDeletedNotes(){
 				<h3 class="note-title">${note.title}</h3>
 				<p class="note-content">${note.content}</p>
 				<div class="note-actions">
-					<button class="edit-btn" onclick="moveToNotesPage('${note.id}')" title="Edit Note">
+					<button class="edit-btn" onclick="moveToNotesPage('${note.id}')" title="Restore Note">
 						<i class="fa-solid fa-arrows-rotate"></i>
 					</button>
-					<button class="edit-btn" onclick="openWarningDialog('${note.id}')" title="Edit Note">
+					<button class="edit-btn" onclick="openWarningDialog('${note.id}')" title="Permanently Delete">
 						x
 					</button>
 				</div>
@@ -224,56 +231,60 @@ function renderDeletedNotes(){
 	}
 }
 
-function moveToNotesPage(noteID){
-    const restoreNote = deletedNotes.find(note => note.id === noteID)
-    
-    // Remove from deleted notes
-    deletedNotes = deletedNotes.filter(note => note.id !== noteID)
-    
-    // Add to main notes
-    notes = [restoreNote, ...notes]
-    
-    saveDeletedNotes()
-    saveNotes()
-    
-    if (window.location.pathname.includes("deleted.html")) {
-        renderDeletedNotes()
-    } else {
-        renderNotes()
-    }
+// Restore note from trash
+function moveToNotesPage(noteID) {
+	const restoreNote = deletedNotes.find(note => note.id === noteID)
+	
+	// Remove from deleted notes
+	deletedNotes = deletedNotes.filter(note => note.id !== noteID)
+	
+	// Add to main notes
+	notes = [restoreNote, ...notes]
+	
+	saveDeletedNotes()
+	saveNotes()
+	
+	// Update the correct view
+	if (window.location.pathname.includes("deleted.html")) {
+		renderDeletedNotes()
+	} else {
+		renderNotes()
+	}
 }
 
+// Permanent deletion functions
 function deletePermanently(noteID) {
-    deletedNotes = deletedNotes.filter(note => note.id !== noteID);
-    saveDeletedNotes()
-    renderDeletedNotes()
+	deletedNotes = deletedNotes.filter(note => note.id !== noteID)
+	saveDeletedNotes()
+	renderDeletedNotes()
 }
 
 function openWarningDialog(noteID) {
-    currentlyDeletingNote = noteID
+	currentlyDeletingNote = noteID
 	const dialog = document.getElementById("warningDialog")
-    dialog.showModal()
+	dialog.showModal()
 }
 
 function closeWarningDialog() {
-    currentlyDeletingNote = null
+	currentlyDeletingNote = null
 	const dialog = document.getElementById("warningDialog")
 	dialog.close()
 }
 
-// === Notes Initialization ====================
+// ==================== INITIALIZATION ====================
 document.addEventListener("DOMContentLoaded", () => {
-    // Always load both notes and deleted notes
-    notes = loadNotes();
-    deletedNotes = loadDeletedNotes();
+	// Load all notes
+	notes = loadNotes()
+	deletedNotes = loadDeletedNotes()
 
-    const isDeletedPage = window.location.pathname.includes("deleted.html");
-    
-    if (isDeletedPage) {
-        renderDeletedNotes();
-    } 
-	else {
-        renderNotes();
-        document.getElementById("noteDialog").addEventListener("submit", saveNote);
-    }
-});
+	// Determine current page
+	const isDeletedPage = window.location.pathname.includes("deleted.html")
+	
+	if (isDeletedPage) {
+		renderDeletedNotes()
+	} else {
+		renderNotes()
+		// Add submit handler only on main page
+		document.getElementById("noteDialog").addEventListener("submit", saveNote)
+	}
+})

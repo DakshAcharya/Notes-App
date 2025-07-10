@@ -1,11 +1,11 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Deleted Notes</title>
-  <link rel="stylesheet" href="style.css" />
-  <script src="app.js" defer></script>
+	<meta charset="UTF-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<title>Deleted Notes</title>
+	<link rel="stylesheet" href="style.css" />
+	<script src="app.js" defer></script>
 
 	<!-- Font Awesome Icons -->
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
@@ -13,38 +13,41 @@
 	<!-- Google Fonts: Poppins -->
 	<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;800&display=swap" rel="stylesheet">
 
-  <!-- Meta Description -->
+	<!-- Meta Description -->
 	<meta name="description" content="Daksh Acharya's Developer Portfolio.">
 
-  <!-- Open Graph Tags -->
+	<!-- Open Graph Tags -->
 	<meta property="og:title" content="Daksh Acharya | Developer Portfolio">
 	<meta property="og:description" content="Developer portfolio showcasing web projects, applications and games.">
 	<meta property="og:image" content="https://dakshacharya.github.io/images/logo.png">
 	<meta property="og:type" content="website">
 	<meta property="og:url" content="https://dakshacharya.github.io/">
-
 </head>
 <body>
+	<!-- ==================== HEADER ==================== -->
+	<header class="deleted-page-header">
+		<button class="deleted-notes-btn" onclick="hideDeletedNotes()">
+			<i class="fa-solid fa-arrow-left"></i>
+		</button>
+		<h1>Deleted Notes</h1>
+	</header>
+	
+	<!-- ==================== EMPTY STATE ==================== -->
+	<div id="emptyState" class="empty-state" style="display: none;">
+		<h2>No notes deleted yet...</h2>
+	</div>
 
-  <header class="deleted-page-header">
-    <button class="deleted-notes-btn" onclick="hideDeletedNotes()"><i class="fa-solid fa-arrow-left"></i></button>
-    <h1>Deleted Notes</h1>
-  </header>
-  
-  <div id="emptyState" class="empty-state" style="display: none;">
-    <h2>No notes deleted yet...</h2>
-  </div>
+	<!-- ==================== WARNING DIALOG ==================== -->
+	<dialog id="warningDialog">
+		<div class="warning-header">Are you sure?</div>
+		<p>This action cannot be undone</p>
+		<div class="dialog-actions">
+			<button class="cancel-btn" onclick="closeWarningDialog()">Cancel</button>
+			<button class="confirm-btn" onclick="deletePermanently(currentlyDeletingNote)">Delete</button>
+		</div>
+	</dialog>
 
-  <dialog id="warningDialog">
-      <h2>Are you sure?</h2>
-      <p>This cannot be undone</p>
-      <div class="dialog-buttons">
-          <button class="cancel-btn" onclick="closeWarningDialog()">Cancel</button>
-          <button class="confirm-btn" onclick="deletePermanently(currentlyDeletingNote)">Delete</button>
-      </div>
-  </dialog>
-
-  <main id="notesContainer" class="notes-grid">
-  </main>
+	<!-- ==================== NOTES CONTAINER ==================== -->
+	<main id="notesContainer" class="notes-grid"></main>
 </body>
 </html>
