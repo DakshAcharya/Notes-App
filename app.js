@@ -257,6 +257,7 @@ function deletePermanently(noteID) {
 	deletedNotes = deletedNotes.filter(note => note.id !== noteID)
 	saveDeletedNotes()
 	renderDeletedNotes()
+	closeWarningDialog()
 }
 
 function openWarningDialog(noteID) {
