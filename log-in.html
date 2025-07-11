@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Notes App</title>
+  <link rel="stylesheet" href="style.css" />
+  <script src="app.js" defer></script>
+
+	<!-- Font Awesome Icons -->
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+	<!-- Google Fonts: Poppins -->
+	<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;800&display=swap" rel="stylesheet">
+
+    <!-- Meta Description -->
+	<meta name="description" content="Daksh Acharya's Developer Portfolio.">
+
+    <!-- Open Graph Tags -->
+	<meta property="og:title" content="Daksh Acharya | Developer Portfolio">
+	<meta property="og:description" content="Developer portfolio showcasing web projects, applications and games.">
+	<meta property="og:image" content="https://dakshacharya.github.io/images/logo.png">
+	<meta property="og:type" content="website">
+	<meta property="og:url" content="https://dakshacharya.github.io/">
+</head>
+<body>
+	<dialog id="loginDialog" style="display: flex;">
+		<div class="dialog-content">
+			<div class="dialog-header">
+				<h2 class="dialog-title" id="dialogTitle">Welcome Back</h2>
+			</div>
+			<form id="loginForm">
+				<div class="form-group">
+					<label for="loginEmail" class="form-label">E-Mail: </label>
+					<input type="text" id="loginEmail" class="form-input" placeholder="Enter e-mail here..." required />
+				</div>
+				<div class="form-group">
+					<label for="loginPassword" class="form-label">Password: </label>
+					<textarea id="loginPassword" class="form-textarea" placeholder="Enter your password here..." required></textarea>
+				</div>
+				<div class="dialog-actions">
+					<button type="submit" class="log-in-btn" onclick="userLogin()">Log-in</button>
+					<button type="button" class="sign-up-btn" onclick="openSignUpDialog()">Sigh-up</button>
+				</div>
+                <div class="external-login">
+					<button type="submit" class="log-in-btn" onclick="userLogin()">Continue with Google<i id="Google" class="fa-brands fa-google"></i></button>
+                </div>
+			</form>
+		</div>
+	</dialog>
+</body>
+</html>
