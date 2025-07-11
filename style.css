@@ -430,9 +430,19 @@ dialog::backdrop {
   gap: 1rem;
 }
 
+.log-in-btn{
+  margin-bottom: 0.5rem;
+}
+
+.sign-up-btn{
+  margin-bottom: 0.5rem;
+}
+
 .cancel-btn,
 .save-btn,
-.confirm-btn {
+.confirm-btn,
+.log-in-btn, 
+.sign-up-btn {
   padding: 0.75rem 1.5rem;
   border: none;
   border-radius: 0.5rem;
@@ -446,7 +456,7 @@ dialog::backdrop {
 
 .cancel-btn:hover,
 .save-btn:hover,
-.confirm-btn:hover {
+.confirm-btn:hover{
   transform: scale(1.03);
 }
 
@@ -532,6 +542,41 @@ dialog::backdrop {
   padding: 1rem 1rem 1rem;
 }
 
+/* ====================== LOG IN ======================= */
+#loginDialog,
+#signUpDialog {
+	font-family: 'Poppins', sans-serif;
+	display: flex;
+	flex-direction: column;
+}
+
+#loginDialog .dialog-header,
+#signUpDialog .dialog-header {
+	padding-bottom: 1rem;
+}
+
+#loginDialog .dialog-actions,
+#signUpDialog .dialog-actions {
+	display: grid;
+	grid-template-columns: 1fr 1fr;
+	gap: 0.5rem;
+	margin-top: 1rem;
+}
+
+#loginDialog .log-in-btn,
+#signUpDialog .log-in-btn,
+#loginDialog .sign-up-btn,
+#signUpDialog .sign-up-btn {
+	width: 100%;
+	padding: 0.75rem;
+	box-sizing: border-box;
+}
+
+.log-in-btn:hover,
+.sign-up-btn:hover {
+	transform: scale(1.01);
+	cursor: pointer;
+}
 /* ==================== EMPTY STATE ==================== */
 .empty-state {
   display: flex;
